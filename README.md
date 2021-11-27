@@ -1,5 +1,19 @@
 # Avaliação Módulo 2 - Let's Code - Ciência de Dados
 
+## Sobre o Projeto
+
+Foram utilizados dados do `World Happiness Report`.
+
+Fontes:
+
+https://www.kaggle.com/mathurinache/world-happiness-report?select=2020.csv
+
+https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021?select=world-happiness-report-2021.csv
+
+
+Juntou-se as bases de dados dos anos 2019, 2020 e 2021 para ter uma conjunto de dados mais completo.
+
+
 ## Etapas para rodar o projeto (Linux)
 
 1 - Clonar repositório
