@@ -1,8 +1,9 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+from helper.prepare_data import DataPreparer
+from helper.persist_data import OutputGenerator
+from helper.generate_graph import GraphGenerator
 
 app = Flask(__name__)
 api = Api(app)
@@ -11,22 +12,19 @@ df = pd.read_csv('data/happiness.csv')
 
 class Happiness(Resource):
     def get(self):
-        happiness_year = df['year'] == 2021
-        filtered_df = df[happiness_year]
+        # prepare data (filter, group)
+        prepared_data = DataPreparer(df)
         
-        grouped_df = filtered_df.groupby('Regional indicator').agg(score=('Ladder score', 'mean'))
-        grouped_df.reset_index(inplace=True)
+        # persist csv and json
+        generator = OutputGenerator(prepared_data.grouped_data)
+        generator.persist_csv()
+        generator.persist_json()
         
-        grouped_df.to_csv('output/grouped.csv', index=False)
-        grouped_df.to_json('output/grouped.json')
+        # create graph
+        graph = GraphGenerator(prepared_data.filtered_data)
+        graph.create_boxplot()
         
-        figure = plt.figure(figsize=(10, 5))
-
-        sns.boxplot(data=filtered_df, x='Ladder score', y='Regional indicator')
-
-        figure.savefig('output/grafico.jpg')
-        
-        return grouped_df.to_json()
+        return prepared_data.create_json()
 
 api.add_resource(Happiness, '/happiness')
 
