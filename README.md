@@ -31,3 +31,17 @@ source env/bin/activate
 ```
 pip install -r requirements.txt
 ```
+
+6 - Rodar API
+
+```
+python api_happiness.py
+```
+
+7 - Testar API
+
+Abrir uma  janela no browser e digitar o seguinte endereço:
+
+```
+http://localhost:5000/happiness
+```
