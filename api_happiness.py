@@ -8,7 +8,7 @@ from helper.generate_graph import GraphGenerator
 app = Flask(__name__)
 api = Api(app)
 
-df = pd.read_csv('data/happiness.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/Akaori/avaliacao_modulo_2/main/data/happiness.csv')
 
 class Happiness(Resource):
     def get(self):
